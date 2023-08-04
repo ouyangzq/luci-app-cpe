@@ -1,3 +1,5 @@
 # luci-app-cpe
 luci-app-cpe
-H69K 
+
+此安装包需要 sendat 包
+git地址：https://github.com/ouyangzq/sendat
