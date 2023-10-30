@@ -293,29 +293,30 @@ RegisterNetwork()
     # ATPORT
     Debug "RegisterNetwork 注册网卡 $ $MODEMNAME"
     # if [ "$MODEMNAME" == "FM650CN" ]; then
-    #     getFM650=$(uci -q get network.wwan |grep "interface"| wc -l)
+    #     getFM650=$(uci -q get network.wwan5g |grep "interface"| wc -l)
     #     if [ $getFM650 == "0" ] ;then
-    #         uci set network.wwan=interface
-    #         uci set network.wwan.ifname='usb0'
-    #         uci set network.wwan.proto=dhcp
+    #         uci set network.wwan5g=interface
+    #         uci set network.wwan5g.ifname='usb0'
+    #         uci set network.wwan5g.proto=dhcp
     #         uci commit network
             
-    #         uci set firewall.@zone[1].network="wan wan6 wwan wwan6 wlan"
+    #         uci set firewall.@zone[1].network="wan wan6 wwan5g wwan5g6 wlan"
     #         uci commit firewall
 
     #         $(/etc/init.d/network reload)
     #     fi
-    #     getFM650=$(uci -q get network.wwan6|grep "interface"| wc -l)
+    #     getFM650=$(uci -q get network.wwan5g6|grep "interface"| wc -l)
     #     if [ $getFM650 == "0" ] ;then
-    #         uci set network.wwan6=interface
-    #         uci set network.wwan6.ifname='usb0'
-    #         uci set network.wwan6.proto='dhcpv6'
-    #         uci set network.wwan6.reqaddress='try'
-    #         uci set network.wwan6.reqprefix='auto'
-    #         uci set network.wwan6._orig_ifname='usb0'
-    #         uci set network.wwan6._orig_bridge='false'
+    #         uci set network.wwan5g6=interface
+    #         uci set network.wwan5g6.ifname='usb0'
+    #         uci set network.wwan5g6.proto='dhcpv6'
+    #         uci set network.wwan5g6.reqaddress='try'
+    #         uci set network.wwan5g6.reqprefix='auto'
+    #         uci set network.wwan5g6._orig_ifname='usb0'
+    #         uci set network.wwan5g6._orig_bridge='false'
+    #         uci set network.wwan5g6.extendprefix='1'
     #         uci commit network
-    #         uci set firewall.@zone[1].network="wan wan6 wwan wwan6 wlan"
+    #         uci set firewall.@zone[1].network="wan wan6 wwan wwan5g wwan5g6 wlan"
     #         uci commit firewall
     #         $(/etc/init.d/network reload)
     #     fi
@@ -323,57 +324,58 @@ RegisterNetwork()
 
 
 
-    if [ $(uci -q get network.wwan |grep "interface"| wc -l) == "0" ] ;then
-        uci set network.wwan=interface
+    if [ $(uci -q get network.wwan5g |grep "interface"| wc -l) == "0" ] ;then
+        uci set network.wwan5g=interface
         if [ "$MODEMNAME" == "FM650CN" ]; then
-            uci set network.wwan.ifname='usb0'
+            uci set network.wwan5g.ifname='usb0'
         else
-            uci set network.wwan.ifname='wwan0'
+            uci set network.wwan5g.ifname='wwan0'
         fi
-        uci set network.wwan.proto=dhcp
+        uci set network.wwan5g.proto=dhcp
         uci commit network
-        uci set firewall.@zone[1].network="wan wan6 wwan wwan6 wlan"
+        uci set firewall.@zone[1].network="wan wan6 wwan5g wwan5g6 wlan"
         uci commit firewall
         $(/etc/init.d/network reload)
     fi
-    if [ $(uci -q get network.wwan6 |grep "interface"| wc -l) == "0" ] ;then
-        uci set network.wwan6=interface
+    if [ $(uci -q get network.wwan5g6 |grep "interface"| wc -l) == "0" ] ;then
+        uci set network.wwan5g6=interface
         if [ "$MODEMNAME" == "FM650CN" ]; then
-            uci set network.wwan6.ifname='usb0'
-            uci set network.wwan6._orig_ifname='usb0'
+            uci set network.wwan5g6.ifname='usb0'
+            uci set network.wwan5g6._orig_ifname='usb0'
         else
-            uci set network.wwan6.ifname='wwan0'
-            uci set network.wwan6._orig_ifname='wwan0'
+            uci set network.wwan5g6.ifname='wwan0'
+            uci set network.wwan5g6._orig_ifname='wwan0'
         fi
-        uci set network.wwan6.proto='dhcpv6'
-        uci set network.wwan6.reqaddress='try'
-        uci set network.wwan6.reqprefix='auto'
-        uci set network.wwan6._orig_bridge='false'
+        uci set network.wwan5g6.proto='dhcpv6'
+        uci set network.wwan5g6.reqaddress='try'
+        uci set network.wwan5g6.reqprefix='auto'
+        uci set network.wwan5g6._orig_bridge='false'
+	uci set network.wwan5g6.extendprefix='1'
         uci commit network
-        uci set firewall.@zone[1].network="wan wan6 wwan wwan6 wlan"
+        uci set firewall.@zone[1].network="wan wan6 wwan wwan5g wwan5g6 wlan"
         uci commit firewall
         $(/etc/init.d/network reload)
     fi
     if [ "$MODEMNAME" == "FM650CN" ]; then
-        if [ $(uci -q get network.wwan.ifname |grep "usb0"| wc -l) == "0" ] ;then
-            uci set network.wwan.ifname='usb0'
+        if [ $(uci -q get network.wwan5g.ifname |grep "usb0"| wc -l) == "0" ] ;then
+            uci set network.wwan5g.ifname='usb0'
             uci commit network
             $(/etc/init.d/network reload)
         fi
-        if [ $(uci -q get network.wwan6.ifname |grep "usb0"| wc -l) == "0" ] ;then
-            uci set network.wwan6.ifname='usb0'
+        if [ $(uci -q get network.wwan5g6.ifname |grep "usb0"| wc -l) == "0" ] ;then
+            uci set network.wwan5g6.ifname='usb0'
             uci commit network
             $(/etc/init.d/network reload)
         fi
     else
-        if [ $(uci -q get network.wwan.ifname |grep "wwan0"| wc -l) == "0" ] ;then
-            uci set network.wwan.ifname='wwan0'
+        if [ $(uci -q get network.wwan5g.ifname |grep "wwan0"| wc -l) == "0" ] ;then
+            uci set network.wwan5g.ifname='wwan0'
             uci commit network
             $(/etc/init.d/network reload)
         fi
-        if [ $(uci -q get network.wwan6.ifname |grep "wwan0"| wc -l) == "0" ] ;then
-            uci set network.wwan6._orig_ifname='wwan0'
-            uci set network.wwan6.ifname='wwan0'
+        if [ $(uci -q get network.wwan5g6.ifname |grep "wwan0"| wc -l) == "0" ] ;then
+            uci set network.wwan5g6._orig_ifname='wwan0'
+            uci set network.wwan5g6.ifname='wwan0'
             uci commit network
             $(/etc/init.d/network reload)   
         fi
@@ -414,4 +416,3 @@ first()
 #					#
 #############################################
 first
-
