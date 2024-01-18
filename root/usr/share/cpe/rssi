@@ -219,7 +219,7 @@ chenk_firstdns()
             if [ $en1 == '1' ] ;then
                 echo "------------------------------开启任务---------------------------"
                 ipadd=$(uci -q get modem.@ndis[0].ipaddress)
-                ping -c 1 -w 1  $ipadd > /dev/null 2>&1
+                ping -c 1 -w 1 -i wwan0 $ipadd > /dev/null 2>&1
                 if [ $? -eq 0 ];then  
                     echo "网络连接正常" 
                     xx=0
@@ -251,7 +251,7 @@ chenk_dns()
     if [ $en1 == '1' ] ;then
         echo "------------------------------开启任务---------------------------"
         ipadd=$(uci -q get modem.@ndis[0].ipaddress)
-        ping -c 1 -w 1  $ipadd > /dev/null 2>&1
+        ping -c 1 -w 1 -i wwan0 $ipadd > /dev/null 2>&1
         if [ $? -eq 0 ];then  
             echo "网络连接正常" 
             xx=0
